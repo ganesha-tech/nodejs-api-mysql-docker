@@ -1,0 +1,25 @@
+{
+  "name": "nodejs-api-mysql-docker",
+  "version": "1.0.0",
+  "description": "A production-style REST API built with Node.js, Express, MySQL, and Docker.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ganesha-tech/nodejs-api-mysql-docker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ganesha-tech/nodejs-api-mysql-docker/issues"
+  },
+  "homepage": "https://github.com/ganesha-tech/nodejs-api-mysql-docker#readme",
+  "dependencies": {
+    "express": "^5.2.1",
+    "mysql2": "^3.24.2"
+  }
+}
