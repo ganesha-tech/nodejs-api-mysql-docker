@@ -5,7 +5,11 @@ const pool = mysql.createPool({
   port: Number(process.env.MYSQL_PORT) || 3306,
   user: process.env.MYSQL_USER || 'appuser',
   password: process.env.MYSQL_PASSWORD || 'apppassword',
-  database: process.env.MYSQL_DATABASE || 'appdb',
+  database:
+  process.env.NODE_ENV === 'test'
+    ? process.env.MYSQL_TEST_DATABASE || 'appdb_test'
+    : process.env.MYSQL_DATABASE || 'appdb',
+
   waitForConnections: true,
   connectionLimit: 10,
 });
@@ -74,6 +78,10 @@ async function deleteUser(id) {
   return result.affectedRows > 0;
 }
 
+async function closeDatabaseConnection() {
+  await pool.end();
+}
+
 module.exports = {
   pool,
   checkDatabaseConnection,
@@ -82,4 +90,5 @@ module.exports = {
   getUserById,
   updateUser,
   deleteUser,
+  closeDatabaseConnection,
 };

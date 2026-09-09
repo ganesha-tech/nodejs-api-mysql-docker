@@ -4,7 +4,8 @@
   "description": "A production-style REST API built with Node.js, Express, MySQL, and Docker.",
   "main": "index.js",
   "scripts": {
-    "start": "node src/app.js"
+    "start": "node src/app.js",
+    "test": "cross-env NODE_ENV=test jest --runInBand"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,13 @@
   "homepage": "https://github.com/ganesha-tech/nodejs-api-mysql-docker#readme",
   "dependencies": {
     "express": "^5.2.1",
-    "mysql2": "^3.24.2"
+    "mysql2": "^3.24.2",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "cross-env": "^10.1.0",
+    "jest": "^30.5.1",
+    "supertest": "^7.2.2",
+    "swagger-jsdoc": "^6.3.0"
   }
 }
