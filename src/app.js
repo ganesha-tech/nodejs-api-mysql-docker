@@ -1,5 +1,5 @@
 const express = require('express');
-
+const helmet = require('helmet');
 const { checkDatabaseConnection } = require('./db');
 
 const usersRouter = require('./routes/users');
@@ -14,37 +14,38 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 
-app.use(express.json());
+app.use(helmet());
+
+app.use(express.json({ limit: '10kb' }));
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.get('/health', async (req, res) => {
-  try {
-    await checkDatabaseConnection();
+try {
+await checkDatabaseConnection();
 
-    res.json({
-      status: 'ok',
-      database: 'connected',
-    });
-  } catch (error) {
-    console.error('Database connection failed:', error.message);
-
-    res.status(503).json({
-      status: 'ok',
-      database: 'disconnected',
-    });
-  }
+res.json({
+  status: 'ok',
+  database: 'connected',
 });
 
+} catch (error) {
+console.error('Database connection failed:', error.message);
+res.status(503).json({
+  status: 'error',
+  database: 'disconnected',
+});
+
+}
+});
 app.use('/users', usersRouter);
 
 app.use(errorHandler);
 
 if (require.main === module) {
-  app.listen(PORT, () => {
-    console.log(`API running on port ${PORT}`);
-  });
+app.listen(PORT, () => {
+console.log(`API running on port ${PORT}`);
+});
 }
 
 module.exports = app;
-

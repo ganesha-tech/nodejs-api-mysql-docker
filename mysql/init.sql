@@ -1,5 +1,7 @@
 CREATE DATABASE IF NOT EXISTS appdb_test;
 
+GRANT ALL PRIVILEGES ON appdb_test.* TO 'appuser'@'%';
+
 USE appdb;
 
 CREATE TABLE IF NOT EXISTS users (
@@ -22,3 +24,8 @@ CREATE TABLE IF NOT EXISTS users (
     email VARCHAR(255) NOT NULL UNIQUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+INSERT INTO users (name, email)
+VALUES
+    ('Ganesha', 'ganesha@ganeshaisgreat.com'),
+    ('Test User', 'test@ganeshaisgreat.com');
